@@ -1,0 +1,28 @@
+package mb.clti.support.exception.validator;
+
+import mb.clti.support.exception.annotation.UniqueNameOM;
+import mb.clti.support.persistence.payload.request.DTORequestOM;
+import mb.clti.support.service.ServiceOM;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+public class ValidatorUniqueNameOM implements ConstraintValidator<UniqueNameOM, DTORequestOM> {
+
+    @Autowired
+    private ServiceOM serviceOM;
+
+    @Override
+    public void initialize(UniqueNameOM constraintAnnotation) {
+    }
+    @Override
+    public boolean isValid(DTORequestOM value, ConstraintValidatorContext context) {
+        if (!Validator.isNull(value.getName()) && !serviceOM.existsByName(value.getName()) ||
+                !Validator.isNull(value.getName()) && !Validator.isNull(value.getId()) && !serviceOM.existsByNameAndIdNot(value.getName(), value.getId()) ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
