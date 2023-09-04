@@ -32,6 +32,24 @@ public class ServiceHost implements ServiceInterface<DTOResponseHost, DTORequest
             case "ip": {
                 return repositoryHostPage.findByIpContainingIgnoreCaseOrderByIpAsc(pageable, value).map(MapStruct.MAPPER::toDTO);
             }
+            case "so": {
+                return repositoryHostPage.findBySoContainingIgnoreCaseOrderBySoAsc(pageable, value).map(MapStruct.MAPPER::toDTO);
+            }
+            case "seal": {
+                return repositoryHostPage.findBySealContainingIgnoreCaseOrderBySealAsc(pageable, value).map(MapStruct.MAPPER::toDTO);
+            }
+            case "memory": {
+                return repositoryHostPage.findByMemoryContainingIgnoreCaseOrderByMemoryAsc(pageable, value).map(MapStruct.MAPPER::toDTO);
+            }
+            case "hd": {
+                return repositoryHostPage.findByHdContainingIgnoreCaseOrderByHdAsc(pageable, value).map(MapStruct.MAPPER::toDTO);
+            }
+            case "processor": {
+                return repositoryHostPage.findByProcessorContainingIgnoreCaseOrderByProcessorAsc(pageable, value).map(MapStruct.MAPPER::toDTO);
+            }
+            case "mac": {
+                return repositoryHostPage.findByMacContainingIgnoreCaseOrderByMacAsc(pageable, value).map(MapStruct.MAPPER::toDTO);
+            }
             default: {
                 return repositoryHostPage.findAll(pageable).map(MapStruct.MAPPER::toDTO);
             }

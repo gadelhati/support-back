@@ -10,4 +10,10 @@ import java.util.UUID;
 public interface RepositoryHostPage extends PagingAndSortingRepository<Host, UUID>, RepositoryInterfacePage<Host> {
 
     Page<Host> findByIpContainingIgnoreCaseOrderByIpAsc(Pageable pageable, String ip);
+    Page<Host> findBySoContainingIgnoreCaseOrderBySoAsc(Pageable pageable, String ip);
+    Page<Host> findBySealContainingIgnoreCaseOrderBySealAsc(Pageable pageable, String ip);
+    Page<Host> findByMemoryContainingIgnoreCaseOrderByMemoryAsc(Pageable pageable, String ip);
+    Page<Host> findByHdContainingIgnoreCaseOrderByHdAsc(Pageable pageable, String ip);
+    Page<Host> findByProcessorContainingIgnoreCaseOrderByProcessorAsc(Pageable pageable, String ip);
+    Page<Host> findByMacContainingIgnoreCaseOrderByMacAsc(Pageable pageable, String ip);
 }
