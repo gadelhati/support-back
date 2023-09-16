@@ -22,7 +22,7 @@ public class ControllerUserEntity implements ControllerInterface<DTOResponseUser
 
     private final ServiceUserEntity serviceUserEntity;
 
-    @PostMapping("") @Override //@PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @PostMapping("") @Override @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseUserEntity> create(@RequestBody @Valid DTORequestUserEntity created){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/userEntity").toUriString());
         return ResponseEntity.created(uri).body(serviceUserEntity.create(created));

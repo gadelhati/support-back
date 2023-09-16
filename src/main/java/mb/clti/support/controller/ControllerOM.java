@@ -22,24 +22,24 @@ public class ControllerOM implements ControllerInterface<DTOResponseOM, DTOReque
 
     private final ServiceOM serviceOm;
 
-    @PostMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @PostMapping("") @Override @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DTOResponseOM> create(@RequestBody @Valid DTORequestOM created){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/om").toUriString());
         return ResponseEntity.created(uri).body(serviceOm.create(created));
     }
-    @GetMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @GetMapping("") @Override @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Page<DTOResponseOM>> retrieve(@RequestParam(value = "key", required = false) String key, @RequestParam(value = "value", required = false) String value, Pageable pageable){
         return ResponseEntity.ok().body(serviceOm.retrieve(pageable, key, value));
     }
-    @PutMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @PutMapping("") @Override @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DTOResponseOM> update(@RequestBody @Valid DTORequestOM updated){
         return ResponseEntity.accepted().body(serviceOm.update(updated.getId(), updated));
     }
-    @DeleteMapping("/{id}") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @DeleteMapping("/{id}") @Override @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DTOResponseOM> delete(@PathVariable UUID id){
         return ResponseEntity.accepted().body(serviceOm.delete(id));
     }
-    @DeleteMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @DeleteMapping("") @Override @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<HttpStatus> delete(){
         try {
             serviceOm.delete();

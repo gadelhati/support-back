@@ -22,24 +22,24 @@ public class ControllerRole implements ControllerInterface<DTOResponseRole, DTOR
 
     private final ServiceRole serviceRole;
 
-    @PostMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @PostMapping("") @Override @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DTOResponseRole> create(@RequestBody @Valid DTORequestRole created){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/role").toUriString());
         return ResponseEntity.created(uri).body(serviceRole.create(created));
     }
-    @GetMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @GetMapping("") @Override @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Page<DTOResponseRole>> retrieve(@RequestParam(value = "key", required = false) String key, @RequestParam(value = "value", required = false) String value, Pageable pageable){
         return ResponseEntity.ok().body(serviceRole.retrieve(pageable, key, value));
     }
-    @PutMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @PutMapping("") @Override @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DTOResponseRole> update(@RequestBody @Valid DTORequestRole updated){
         return ResponseEntity.accepted().body(serviceRole.update(updated.getId(), updated));
     }
-    @DeleteMapping("/{id}") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @DeleteMapping("/{id}") @Override @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DTOResponseRole> delete(@PathVariable UUID id){
         return ResponseEntity.accepted().body(serviceRole.delete(id));
     }
-    @DeleteMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @DeleteMapping("") @Override @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<HttpStatus> delete(){
         try {
             serviceRole.delete();

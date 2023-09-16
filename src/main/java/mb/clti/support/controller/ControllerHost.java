@@ -22,24 +22,24 @@ public class ControllerHost implements ControllerInterface<DTOResponseHost, DTOR
 
     private final ServiceHost serviceHost;
 
-    @PostMapping("") @PreAuthorize("hasAnyHost('MODERATOR', 'ADMIN')")
+    @PostMapping("") @Override @PreAuthorize("hasAnyHost('OPERATOR', 'MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseHost> create(@RequestBody @Valid DTORequestHost created){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/host").toUriString());
         return ResponseEntity.created(uri).body(serviceHost.create(created));
     }
-    @GetMapping("") @PreAuthorize("hasAnyHost('MODERATOR', 'ADMIN')")
+    @GetMapping("") @Override @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Page<DTOResponseHost>> retrieve(@RequestParam(value = "key", required = false) String key, @RequestParam(value = "value", required = false) String value, Pageable pageable){
         return ResponseEntity.ok().body(serviceHost.retrieve(pageable, key, value));
     }
-    @PutMapping("") @PreAuthorize("hasAnyHost('MODERATOR', 'ADMIN')")
+    @PutMapping("") @Override @PreAuthorize("hasAnyHost('OPERATOR', 'MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseHost> update(@RequestBody @Valid DTORequestHost updated){
         return ResponseEntity.accepted().body(serviceHost.update(updated.getId(), updated));
     }
-    @DeleteMapping("/{id}") @PreAuthorize("hasAnyHost('MODERATOR', 'ADMIN')")
+    @DeleteMapping("/{id}") @Override @PreAuthorize("hasAnyHost('OPERATOR', 'MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseHost> delete(@PathVariable UUID id){
         return ResponseEntity.accepted().body(serviceHost.delete(id));
     }
-    @DeleteMapping("") @PreAuthorize("hasAnyHost('MODERATOR', 'ADMIN')")
+    @DeleteMapping("") @Override @PreAuthorize("hasAnyHost('OPERATOR', 'MODERATOR', 'ADMIN')")
     public ResponseEntity<HttpStatus> delete(){
         try {
             serviceHost.delete();
