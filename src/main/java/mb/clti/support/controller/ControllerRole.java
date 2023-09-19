@@ -28,7 +28,7 @@ public class ControllerRole implements ControllerInterface<DTOResponseRole, DTOR
         return ResponseEntity.created(uri).body(serviceRole.create(created));
     }
     @GetMapping("") @Override @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<Page<DTOResponseRole>> retrieve(@RequestParam(value = "key", required = false) String key, @RequestParam(value = "value", required = false) String value, Pageable pageable){
+    public ResponseEntity<Page<DTOResponseRole>> retrieve(@RequestParam(name = "key", defaultValue = "", required = false) String key, @RequestParam(name = "value", defaultValue = "", required = false) String value, Pageable pageable){
         return ResponseEntity.ok().body(serviceRole.retrieve(pageable, key, value));
     }
     @PutMapping("") @Override @PreAuthorize("hasAnyRole('ADMIN')")

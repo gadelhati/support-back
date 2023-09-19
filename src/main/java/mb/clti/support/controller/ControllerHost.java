@@ -28,7 +28,7 @@ public class ControllerHost implements ControllerInterface<DTOResponseHost, DTOR
         return ResponseEntity.created(uri).body(serviceHost.create(created));
     }
     @GetMapping("") @Override @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Page<DTOResponseHost>> retrieve(@RequestParam(value = "key", required = false) String key, @RequestParam(value = "value", required = false) String value, Pageable pageable){
+    public ResponseEntity<Page<DTOResponseHost>> retrieve(@RequestParam(name = "key", defaultValue = "", required = false) String key, @RequestParam(name = "value", defaultValue = "", required = false) String value, Pageable pageable){
         return ResponseEntity.ok().body(serviceHost.retrieve(pageable, key, value));
     }
     @PutMapping("") @Override @PreAuthorize("hasAnyHost('OPERATOR', 'MODERATOR', 'ADMIN')")
